@@ -1,0 +1,138 @@
+﻿<UserControl x:Class="LEDSystem.Effects.SpectrumControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:controls="clr-namespace:LEDSystem.UI.Controls"
+             mc:Ignorable="d">
+    <StackPanel Orientation="Vertical">
+        <TextBlock HorizontalAlignment="Left" Text="{StaticResource effectAudioSettings}" FontWeight="Bold" Margin="5,0,0,5" Foreground="#FF9EA7AE"/>
+        <Border Height="80" CornerRadius="10" Background="#FF212022" Margin="0,10,0,0">
+            <Grid Margin="20,10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="20"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0">
+                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{StaticResource effectItemInputDeviceTitle}" FontWeight="Bold" Foreground="#FF9EA7AE" FontSize="16"/>
+                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{StaticResource effectItemInputDeviceDescription}" Margin="0,5,0,0" Foreground="#FF7E878E"/>
+                </StackPanel>
+                <ComboBox x:Name="CBox_InputDevice" Grid.Column="2" Height="36" Width="340" SelectionChanged="CBox_InputDevice_SelectionChanged"/>
+            </Grid>
+        </Border>
+        <Border Height="80" CornerRadius="10" Background="#FF212022" Margin="0,10,0,0">
+            <Grid Margin="20,10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="20"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Center">
+                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{StaticResource effectItemPeakLevelTitle}" FontWeight="Bold" Foreground="#FF9EA7AE" FontSize="16"/>
+                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{StaticResource effectItemPeakLevelDescription}" Margin="0,5,0,0" Foreground="#FF7E878E"/>
+                </StackPanel>
+                <ProgressBar Grid.Column="2" HorizontalAlignment="Right" x:Name="Prg_PeakLevel" Width="340" Height="10" Maximum="255" Background="#FF2B2C33" Foreground="#FFA0EE99"/>
+                <Image Width="340" Grid.Column="2" Source="/LEDSystem;component/Images/ic_vumeter_top.png" Margin="0,2,0,35"/>
+                <Image Width="340" Grid.Column="2" Source="/LEDSystem;component/Images/ic_vumeter_bottom.png" Margin="0,38,0,2"/>
+                <Line x:Name="Line_Peak" Visibility="Collapsed" Grid.Column="2" Y1="0" Y2="80" VerticalAlignment="Stretch" Stretch="Fill" HorizontalAlignment="Left" StrokeThickness="1" Fill="Red" Stroke="Red" ></Line>
+            </Grid>
+        </Border>
+        <Border Height="80" CornerRadius="10" Background="#FF212022"  Margin="0,10,0,0">
+            <Grid Margin="20,10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="20"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0">
+                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{StaticResource effectItemPeakMultiplierTitle}" FontWeight="Bold" Foreground="#FF9EA7AE" FontSize="16"/>
+                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{StaticResource effectItemPeakMultiplierDescription}" Margin="0,5,0,0" Foreground="#FF7E878E"/>
+                </StackPanel>
+                <controls:NumericUpDownControl x:Name="NBox_PeakMultiplier" Grid.Column="2" Width="340" Height="36" Value="1" Maximum="10" Unit="x" ValueChanged="NBox_PeakMultiplier_ValueChanged"/>
+            </Grid>
+        </Border>
+        <Border Height="80" CornerRadius="10" Background="#FF212022"  Margin="0,10,0,0">
+            <Grid Margin="20,10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="20"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Left" >
+                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{StaticResource effectItemBandFilterTitle}" FontWeight="Bold" Foreground="#FF9EA7AE" FontSize="16"/>
+                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{StaticResource effectItemBandFilterDescription}" Margin="0,5,0,0" Foreground="#FF7E878E"/>
+                </StackPanel>
+
+                <StackPanel Grid.Column="2" Orientation="Horizontal" Width="340">
+                    <RadioButton x:Name="Rad_FilterLow" Background="#FF404D55" Width="108" Height="36" HorizontalAlignment="Left" GroupName="Frequency_Filter" Click="Rad_FilterLow_Click">
+                        <TextBlock Text="{StaticResource effectLowFilter}" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource App.Light.Foreground}" FontWeight="Bold"/>
+                    </RadioButton>
+                    <RadioButton x:Name="Rad_FilterMedium" Background="#FF404D55" Width="107" Height="36" HorizontalAlignment="Left" Margin="9,0,0,0" GroupName="Frequency_Filter" Click="Rad_FilterMedium_Click">
+                        <TextBlock Text="{StaticResource effectMediumFilter}" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource App.Light.Foreground}" FontWeight="Bold"/>
+                    </RadioButton>
+                    <RadioButton x:Name="Rad_FilterHigh" Background="#FF404D55" Width="106" Height="36" HorizontalAlignment="Left" Margin="9,0,0,0" GroupName="Frequency_Filter" Click="Rad_FilterHigh_Click">
+                        <TextBlock Text="{StaticResource effectHighFilter}" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource App.Light.Foreground}" FontWeight="Bold"/>
+                    </RadioButton>
+                </StackPanel>
+            </Grid>
+        </Border>
+        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{StaticResource effectColorSettings}" VerticalAlignment="Top" FontWeight="Bold" Margin="5,20,0,5" Foreground="#FF9EA7AE"/>
+        <Border Height="80" CornerRadius="10" Background="#FF212022"  Margin="0,10,0,0">
+            <Grid Margin="20,10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="20"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0">
+                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{StaticResource effectItemColorModeTitle}" FontWeight="Bold" Foreground="#FF9EA7AE" FontSize="16"/>
+                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{StaticResource effectItemColorModeDescription}" Margin="0,5,0,0" Foreground="#FF7E878E"/>
+                </StackPanel>
+                <ComboBox Grid.Column="2" HorizontalAlignment="Right" Height="36" x:Name="CBox_ColorMode" Width="340" VerticalAlignment="Stretch" ItemsSource="{StaticResource spectrumColorModes}" SelectionChanged="CBox_ColorMode_SelectionChanged" />
+            </Grid>
+        </Border>
+        <Border x:Name="Item_CycleSpeed" Height="80" CornerRadius="10" Background="#FF212022" Margin="0,10,0,0">
+            <Grid Margin="20,10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="20"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0" Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Center">
+                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{StaticResource effectItemCycleSpeedTitle}" FontWeight="Bold" Foreground="#FF9EA7AE" FontSize="16"/>
+                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{StaticResource effectItemCycleSpeedDescription}" Margin="0,5,0,0" Foreground="#FF7E878E"/>
+                </StackPanel>
+                <controls:NumericUpDownControl x:Name="NBox_Speed" Grid.Column="2" Width="340" Height="36" Value="80" Minimum="10" Maximum="100" Unit="ms" ValueChanged="NBox_Speed_ValueChanged"/>
+            </Grid>
+        </Border>
+        <Border x:Name="Item_PeakSensibility" Height="80" CornerRadius="10" Background="#FF212022" Margin="0,10,0,0">
+            <Grid Margin="20,10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="20"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0" Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Center">
+                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{StaticResource effectItemPeakSensibilityTitle}" FontWeight="Bold" Foreground="#FF9EA7AE" FontSize="16"/>
+                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{StaticResource effectItemPeakSensibilityDescription}" Margin="0,5,0,0" Foreground="#FF7E878E"/>
+                </StackPanel>
+                <controls:NumericUpDownControl x:Name="NBox_PeakSensibility" Grid.Column="2" Width="340" Height="36" Value="100" Maximum="100" Unit="%" ValueChanged="NBox_PeakSensibility_ValueChanged"/>
+            </Grid>
+        </Border>
+        <Border x:Name="Item_ColorPicker" Height="80" CornerRadius="10" Background="#FF212022" Margin="0,10,0,0">
+            <Grid Margin="20,10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="20"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0">
+                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{StaticResource effectItemColorPickerTitle}" FontWeight="Bold" Foreground="#FF9EA7AE" FontSize="16"/>
+                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{StaticResource effectItemColorPickerDescription}" Margin="0,5,0,0" Foreground="#FF7E878E"/>
+                </StackPanel>
+                <controls:ColorBoxControl x:Name="CBox_ColorPicker" Grid.Column="2" Width="340" Height="36" OnPickerRequest="CBox_ColorPicker_OnPickerRequest"/>
+            </Grid>
+        </Border>
+    </StackPanel>
+</UserControl>

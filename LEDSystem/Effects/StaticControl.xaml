@@ -1,0 +1,60 @@
+﻿<UserControl x:Class="LEDSystem.Effects.StaticControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:controls="clr-namespace:LEDSystem.UI.Controls"
+             mc:Ignorable="d">
+    <StackPanel Orientation="Vertical">
+        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{StaticResource effectColorSettings}" FontWeight="Bold" Margin="5,0,0,5" Foreground="#FF9EA7AE"/>
+        <Border Height="80" CornerRadius="10" Background="#FF212022" Margin="0,10,0,0">
+            <Grid Margin="20,10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="20"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0">
+                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{StaticResource effectItemOutputLightTitle}" FontWeight="Bold" Foreground="#FF9EA7AE" FontSize="16"/>
+                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{StaticResource effectItemOutputLightDescription}" Margin="0,5,0,0" Foreground="#FF7E878E"/>
+                </StackPanel>
+                <ComboBox x:Name="CBox_SelectedLight" Grid.Column="2" HorizontalAlignment="Right" Height="36" Width="340" VerticalAlignment="Stretch" SelectionChanged="CBox_SelectedLight_SelectionChanged"/>
+            </Grid>
+        </Border>
+        <Border Height="80" CornerRadius="10" Background="#FF212022" Margin="0,10,0,0">
+            <Grid Margin="20,10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="20"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0">
+                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{StaticResource effectItemColorPickerTitle}" FontWeight="Bold" Foreground="#FF9EA7AE" FontSize="16"/>
+                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{StaticResource effectItemColorPickerDescription}" Margin="0,5,0,0" Foreground="#FF7E878E"/>
+                </StackPanel>
+                <controls:ColorBoxControl x:Name="CBox_ColorPicked" Grid.Column="2" Width="340" Height="36" OnPickerRequest="CBox_ColorPicked_OnPickerRequest"/>
+            </Grid>
+        </Border>
+        <Border Height="80" CornerRadius="10" Background="#FF212022" Margin="0,10,0,0">
+            <Grid Margin="20,10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="20"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0">
+                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{StaticResource effectItemIntensityTitle}" FontWeight="Bold" Foreground="#FF9EA7AE" FontSize="16"/>
+                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{StaticResource effectItemIntensityDescription}" Margin="0,5,0,0" Foreground="#FF7E878E"/>
+                </StackPanel>
+                <Slider x:Name="Seek_Intensity" Grid.Column="2" Width="340" Height="36" TickPlacement="Both" Maximum="255" Minimum="0" ValueChanged="Seek_Intensity_ValueChanged" Thumb.DragCompleted="Seek_Intensity_DragCompleted">
+                    <Slider.Background>
+                        <LinearGradientBrush EndPoint="1,0" StartPoint="0,0">
+                            <GradientStop Color="Black" Offset="0"/>
+                            <GradientStop Color="White" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Slider.Background>
+                </Slider>
+            </Grid>
+        </Border>
+    </StackPanel>
+</UserControl>

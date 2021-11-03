@@ -1,0 +1,56 @@
+﻿<UserControl x:Class="LEDSystem.Effects.DaylightControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:controls="clr-namespace:LEDSystem.UI.Controls"
+             mc:Ignorable="d">
+    <Grid>
+        <StackPanel Orientation="Vertical">
+            <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{StaticResource effectLogicSettings}" FontWeight="Bold" Margin="5,0,0,5" Foreground="#FF9EA7AE"/>
+            <Border Height="80" CornerRadius="10" Background="#FF212022" Margin="0,10,0,0">
+                <Grid Margin="20,10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="20"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Center">
+                        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{StaticResource effectItemPresetTitle}" FontWeight="Bold" Foreground="#FF9EA7AE" FontSize="16"/>
+                        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{StaticResource effectItemPresetDescription}" Margin="0,5,0,0" Foreground="#FF7E878E"/>
+                    </StackPanel>
+                    <ComboBox x:Name="CBox_Presets" BorderThickness="1" Grid.Column="2" Width="340" Height="36" ItemsSource="{StaticResource effectDaylightPresets}" SelectionChanged="CBox_Presets_SelectionChanged" />
+                </Grid>
+            </Border>
+            <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{StaticResource effectTemperatureSettings}" VerticalAlignment="Top" FontWeight="Bold" Margin="5,20,0,5" Foreground="#FF9EA7AE"/>
+            <Border Height="80" CornerRadius="10" Background="#FF212022"  Margin="0,10,0,0">
+                <Grid Margin="20,10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="20"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0">
+                        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{StaticResource effectItemColorTemperatureTitle}" FontWeight="Bold" Foreground="#FF9EA7AE" FontSize="16"/>
+                        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{StaticResource effectItemColorTemperatureDescription}" Margin="0,5,0,0" Foreground="#FF7E878E"/>
+                    </StackPanel>
+                    <controls:NumericUpDownControl x:Name="NBox_ColorTemperature" Grid.Column="2" Width="340" Height="36" Value="1500" Minimum="1500" Maximum="7500" Unit="kelvin" ValueChanged="NBox_ColorTemperature_ValueChanged"/>
+                </Grid>
+            </Border>
+            <Border Height="80" CornerRadius="10" Background="#FF212022"  Margin="0,10,0,0">
+                <Grid Margin="20,10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="20"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0">
+                        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{StaticResource effectItemColorPreviewTitle}" FontWeight="Bold" Foreground="#FF9EA7AE" FontSize="16"/>
+                        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{StaticResource effectItemColorPreviewDescription}" Margin="0,5,0,0" Foreground="#FF7E878E"/>
+                    </StackPanel>
+                    <controls:ColorBoxControl x:Name="CBox_ColorPicker" Grid.Column="2" Width="340" Height="36" Background="#FFFF890E" />
+                </Grid>
+            </Border>
+        </StackPanel>
+    </Grid>
+</UserControl>

@@ -1,0 +1,166 @@
+﻿<UserControl x:Class="LEDSystem.Effects.WeatherControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:controls="clr-namespace:LEDSystem.UI.Controls"
+             mc:Ignorable="d">
+    <Grid>
+        <StackPanel Orientation="Vertical">
+            <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{StaticResource effectLogicSettings}" FontWeight="Bold" Margin="5,0,0,5" Foreground="#FF9EA7AE"/>
+            <Border Height="80" CornerRadius="10" Background="#FF212022" Margin="0,10,0,0">
+                <Grid Margin="20,10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="20"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Center">
+                        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{StaticResource effectItemSearchLocationTitle}" FontWeight="Bold" Foreground="#FF9EA7AE" FontSize="16"/>
+                        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{StaticResource effectItemSearchLocationDescription}" Margin="0,5,0,0" Foreground="#FF7E878E"/>
+                    </StackPanel>
+                    <TextBox x:Name="TBox_Location" BorderThickness="1" Grid.Column="2" Width="340" Height="36" KeyDown="TBox_Location_KeyDown"/>
+                </Grid>
+            </Border>
+            <Border Height="80" CornerRadius="10" Background="#FF212022" Margin="0,10,0,0">
+                <Grid Margin="20,10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="20"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Center">
+                        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{StaticResource effectItemUpdatePeriodTitle}" FontWeight="Bold" Foreground="#FF9EA7AE" FontSize="16"/>
+                        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{StaticResource effectItemUpdatePeriodDescription}" Margin="0,5,0,0" Foreground="#FF7E878E"/>
+                    </StackPanel>
+                    <ComboBox x:Name="CBox_UpdatePeriod" BorderThickness="1" Grid.Column="2" Width="340" Height="36" ItemsSource="{StaticResource effectWeatherPeriods}" SelectionChanged="CBox_UpdatePeriod_SelectionChanged"/>
+                </Grid>
+            </Border>
+            <Border Height="80" CornerRadius="10" Background="#FF212022" Margin="0,10,0,0">
+                <Grid Margin="20,10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="20"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Center">
+                        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{StaticResource effectItemCurrentWeatherTitle}" FontWeight="Bold" Foreground="#FF9EA7AE" FontSize="16"/>
+                        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{StaticResource effectItemCurrentWeatherDescription}" Margin="0,5,0,0" Foreground="#FF7E878E"/>
+                    </StackPanel>
+                    <Border CornerRadius="5" Grid.Column="2" Width="340" Background="#FF2B2C33">
+                        <Grid Margin="5" >
+                            <Image x:Name="Img_WidgetIcon" Width="50" Height="50" HorizontalAlignment="Left" Source="/LEDSystem;component/Images/Weather/ic_clear.png"></Image>
+                            <StackPanel Grid.Column="0" Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="65,0,0,0">
+                                <TextBlock x:Name="Tx_WidgetLocataion" HorizontalAlignment="Left" TextWrapping="Wrap" Text="-" FontWeight="Bold" Foreground="#FF9EA7AE" FontSize="16"/>
+                                <TextBlock x:Name="Tx_WidgetCondition" HorizontalAlignment="Left" TextWrapping="Wrap" Text="-"  Foreground="#FF7E878E"/>
+                            </StackPanel>
+                            <TextBlock x:Name="Tx_WidgetTemperature" HorizontalAlignment="Right" TextWrapping="Wrap" Text="0°" FontWeight="Bold" Foreground="#FF9EA7AE" FontSize="30" VerticalAlignment="Center" Margin="0,0,75,0"/>
+                            <Button x:Name="Btn_WeatherUpdate" HorizontalAlignment="Right" Margin="0,0,5,0" Width="60" Height="40" Background="#00FFFFFF" Click="Btn_WeatherUpdate_Click">
+                                <Path Width="18" Height="18" Stretch="Uniform" Data="M6 18.7V21a1 1 0 0 1-2 0v-5a1 1 0 0 1 1-1h5a1 1 0 1 1 0 2H7.1A7 7 0 0 0 19 12a1 1 0 1 1 2 0 9 9 0 0 1-15 6.7zM18 5.3V3a1 1 0 0 1 2 0v5a1 1 0 0 1-1 1h-5a1 1 0 0 1 0-2h2.9A7 7 0 0 0 5 12a1 1 0 1 1-2 0 9 9 0 0 1 15-6.7z" Fill="White"></Path>
+                            </Button>
+                        </Grid>
+                    </Border>
+                </Grid>
+            </Border>
+            <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{StaticResource effectWeatherSettings}" VerticalAlignment="Top" FontWeight="Bold" Margin="5,20,0,5" Foreground="#FF9EA7AE"/>
+            <Border Height="80" CornerRadius="10" Background="#FF212022" Margin="0,10,0,0">
+                <Grid Margin="20,10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="20"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Center">
+                        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{StaticResource effectItemEvaluationParameterTitle}" FontWeight="Bold" Foreground="#FF9EA7AE" FontSize="16"/>
+                        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{StaticResource effectItemEvaluationParameterDescription}" Margin="0,5,0,0" Foreground="#FF7E878E"/>
+                    </StackPanel>
+                    <ComboBox x:Name="CBox_EvaluationParamenter" BorderThickness="1" Grid.Column="2" Width="340" Height="36" ItemsSource="{StaticResource effectWeatherParameters}" SelectionChanged="CBox_EvaluationParamenter_SelectionChanged"/>
+                </Grid>
+            </Border>
+            <Border x:Name="Item_WeatherConditions" Height="80" CornerRadius="10" Background="#FF212022" Margin="0,10,0,0">
+                <Grid Margin="20,10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="20"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Center">
+                        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Weather condition" FontWeight="Bold" Foreground="#FF9EA7AE" FontSize="16"/>
+                        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Seleziona la velocita con cui l'utilizzo della cpu viene campionato." Margin="0,5,0,0" Foreground="#FF7E878E"/>
+                    </StackPanel>
+                    <ComboBox x:Name="CBox_WeatherConditions" BorderThickness="1" Grid.Column="2" Width="340" Height="36" ItemsSource="{StaticResource effectWeatherConditions}" SelectionChanged="CBox_WeatherConditions_SelectionChanged"/>
+                </Grid>
+            </Border>
+            <Border x:Name="Item_MinTemperature" Height="80" CornerRadius="10" Background="#FF212022" Margin="0,10,0,0">
+                <Grid Margin="20,10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="20"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Center">
+                        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{StaticResource effectItemMinTemperatureTitle}" FontWeight="Bold" Foreground="#FF9EA7AE" FontSize="16"/>
+                        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{StaticResource effectItemMinTemperatureDescription}" Margin="0,5,0,0" Foreground="#FF7E878E"/>
+                    </StackPanel>
+                    <controls:NumericUpDownControl x:Name="NBox_MinTemperature" Minimum="-80" Maximum="80" Unit="°C" BorderThickness="1" Grid.Column="2" Width="340" Height="36" ValueChanged="NBox_MinTemperature_ValueChanged"/>
+                </Grid>
+            </Border>
+            <Border x:Name="Item_MaxTemperature" Height="80" CornerRadius="10" Background="#FF212022" Margin="0,10,0,0">
+                <Grid Margin="20,10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="20"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Center">
+                        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{StaticResource effectItemMaxTemperatureTitle}" FontWeight="Bold" Foreground="#FF9EA7AE" FontSize="16"/>
+                        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{StaticResource effectItemMaxTemperatureDescription}" Margin="0,5,0,0" Foreground="#FF7E878E"/>
+                    </StackPanel>
+                    <controls:NumericUpDownControl x:Name="NBox_MaxTemperature" Minimum="-80" Maximum="80" Unit="°C" BorderThickness="1" Grid.Column="2" Width="340" Height="36" ValueChanged="NBox_MaxTemperature_ValueChanged"/>
+                </Grid>
+            </Border>
+            <Border x:Name="Item_MinPressure" Height="80" CornerRadius="10" Background="#FF212022" Margin="0,10,0,0">
+                <Grid Margin="20,10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="20"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Center">
+                        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{StaticResource effectItemMinPressureTitle}" FontWeight="Bold" Foreground="#FF9EA7AE" FontSize="16"/>
+                        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{StaticResource effectItemMinPressureDescription}" Margin="0,5,0,0" Foreground="#FF7E878E"/>
+                    </StackPanel>
+                    <controls:NumericUpDownControl x:Name="NBox_MinPressure" Minimum="920" Maximum="1060" Unit="hPa" BorderThickness="1" Grid.Column="2" Width="340" Height="36" ValueChanged="NBox_MinPressure_ValueChanged"/>
+                </Grid>
+            </Border>
+            <Border x:Name="Item_MaxPressure" Height="80" CornerRadius="10" Background="#FF212022" Margin="0,10,0,0">
+                <Grid Margin="20,10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="20"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Center">
+                        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{StaticResource effectItemMaxPressureTitle}" FontWeight="Bold" Foreground="#FF9EA7AE" FontSize="16"/>
+                        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{StaticResource effectItemMaxPressureDescription}" Margin="0,5,0,0" Foreground="#FF7E878E"/>
+                    </StackPanel>
+                    <controls:NumericUpDownControl x:Name="NBox_MaxPressure" Minimum="920" Maximum="1060" Unit="hPa" BorderThickness="1" Grid.Column="2" Width="340" Height="36" ValueChanged="NBox_MaxPressure_ValueChanged"/>
+                </Grid>
+            </Border>
+            <Border Height="80" CornerRadius="10" Background="#FF212022"  Margin="0,10,0,0">
+                <Grid Margin="20,10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="20"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0">
+                        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{StaticResource effectItemColorPickerTitle}" FontWeight="Bold" Foreground="#FF9EA7AE" FontSize="16"/>
+                        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{StaticResource effectItemColorPickerDescription}" Margin="0,5,0,0" Foreground="#FF7E878E"/>
+                    </StackPanel>
+                    <controls:ColorBoxControl x:Name="CBox_ColorPicker" Grid.Column="2" Width="340" Height="36" OnPickerRequest="CBox_ColorPicker_OnPickerRequest"/>
+                </Grid>
+            </Border>
+        </StackPanel>
+    </Grid>
+</UserControl>

@@ -1,0 +1,447 @@
+﻿<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:controls="clr-namespace:LEDSystem.UI.Controls"
+        xmlns:tb="http://www.hardcodet.net/taskbar"
+        x:Class="LEDSystem.UI.Pages.MainWindow"
+        Background="#FF0A0A0A"
+        DataContext="{Binding RelativeSource={RelativeSource Self}}"
+        mc:Ignorable="d" Title="LED System" Height="1030" Width="2030" MinWidth="1200" MinHeight="700" WindowState="Normal" WindowStartupLocation="CenterScreen" Icon="/LEDSystem;component/icon.ico" Closing="Window_Closing" SizeChanged="Window_SizeChanged">
+    <controls:SizeAdjuster x:Name="Tab_Adjuster">
+        <Grid x:Name="Tab_Main">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="390"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <!--Taskbar notification-->
+            <tb:TaskbarIcon x:Name="TBar_Icon"
+                    Visibility="Visible"
+                    ToolTipText="LED System"
+                    MenuActivation="LeftOrRightClick"   
+                    TrayMouseDoubleClick="TBar_Icon_TrayMouseDoubleClick"
+                    IconSource="/LEDSystem;component/icon.ico">
+                <tb:TaskbarIcon.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem x:Name="Menu_Open" Header="{StaticResource notifyOpen}" Click="Menu_Open_Click"/>
+                        <MenuItem x:Name="Menu_Dashboard" Header="{StaticResource notifyConfiguration}" Click="Menu_Dashboard_Click"/>
+                        <Separator />
+                        <MenuItem x:Name="Menu_Effects" Header="{StaticResource notifyChangeEffect}" Click="Menu_Effects_Click"/>
+                        <MenuItem x:Name="Menu_Settings" Header="{StaticResource notifySettings}" Click="Menu_Settings_Click"/>
+                        <Separator />
+                        <MenuItem x:Name="Menu_Ouit" Header="{StaticResource notifyQuit}" Click="Menu_Ouit_Click"/>
+                    </ContextMenu>
+                </tb:TaskbarIcon.ContextMenu>
+            </tb:TaskbarIcon>
+            <!--Large navigation menu-->
+            <Grid Grid.Column="0" x:Name="Nav_Large">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="180"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="150"/>
+                </Grid.RowDefinitions>
+                <Border x:Name="Tab_Dashboard" CornerRadius="10" BorderThickness="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="#FF17181A" Grid.Row="0" Margin="15,15,15,5">
+                    <Grid>
+                        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{StaticResource navbarProfile}" VerticalAlignment="Top" FontWeight="Bold" Margin="20,20,0,0" Foreground="#FF9EA7AE"/>
+                        <Button x:Name="Btn_ToConfiguration" Margin="10,40,10,10" Style="{StaticResource FlatButton}" Background="#00FFFFFF" BorderThickness="0" Click="Btn_ToConfiguration_Click">
+                            <Grid Height="110" Width="340">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="88"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="58"/>
+                                </Grid.ColumnDefinitions>
+                                <Border CornerRadius="10"  Width="68" Height="68" HorizontalAlignment="Center" VerticalAlignment="Center" Background="#FF404D55" Margin="10,21" >
+                                    <Image HorizontalAlignment="Center" VerticalAlignment="Center" Source="/LEDSystem;component/Images/ic_arduino.png" Stretch="Uniform" Margin="15"/>
+                                </Border>
+                                <StackPanel Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="30,0,0,0">
+                                    <TextBlock x:Name="Tx_hName" FontSize="16" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="#FF919195" Text="{StaticResource menuUnknown}"/>
+                                    <TextBlock x:Name="Tx_hStatus" FontSize="14" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="#FF9D6969" Text="{StaticResource menuDisconnected}"/>
+                                </StackPanel>
+                                <TextBlock Text="&gt;" HorizontalAlignment="Center" VerticalAlignment="Center" Background="#FF17181A" FontFamily="MS Gothic" FontWeight="Bold" Grid.Column="2"/>
+                            </Grid>
+                        </Button>
+                    </Grid>
+                </Border>
+                <Border x:Name="Tab_Effects" IsEnabled="False" CornerRadius="10" BorderThickness="0" HorizontalAlignment="Stretch" Margin="15,10,15,0" VerticalAlignment="Stretch" Background="#FF17181A" Grid.Row="1">
+                    <Grid>
+                        <TextBlock HorizontalAlignment="Left" Text="{StaticResource navbarEffects}" VerticalAlignment="Top" FontWeight="Bold" Margin="20,20,0,0" Foreground="#FF9EA7AE"/>
+                        <ListView x:Name="List_Effects" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10,36,10,10" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ItemsSource="{StaticResource effects}"/>
+                    </Grid>
+                </Border>
+                <Border x:Name="Tab_Others" CornerRadius="10" BorderThickness="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="#FF17181A" Grid.Row="3" Margin="15">
+                    <Grid>
+                        <TextBlock HorizontalAlignment="Left" Text="{StaticResource navbarOthers}" VerticalAlignment="Top" FontWeight="Bold" Margin="20,20,0,0" Foreground="#FF9EA7AE"/>
+                        <Button x:Name="Btn_ToSettings" Margin="10,36,10,10" Style="{StaticResource FlatButton}" Background="#00FFFFFF" BorderThickness="0" Click="Btn_ToSettings_Click">
+                            <Grid Height="73" Width="340">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="56"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="58"/>
+                                </Grid.ColumnDefinitions>
+                                <Border Background="#FF404D55" Width="36" Height="36" CornerRadius="10" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <Image Width="18" Height="18" Source="/LEDSystem;component/Images/ic_settings.png" />
+                                </Border>
+                                <StackPanel Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left">
+                                    <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="#FFB8B8B8" Text="{StaticResource menuSettingsTitle}" Margin="0,-3,0,0"/>
+                                    <TextBlock FontSize="11" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="#FF8C8C8C" Text="{StaticResource menuSettingsDescription}" Margin="0,-2,0,0"/>
+                                </StackPanel>
+                                <TextBlock Text="&gt;" HorizontalAlignment="Center" VerticalAlignment="Center" Background="#FF17181A" FontFamily="MS Gothic" FontWeight="Bold" Grid.Column="2"/>
+                            </Grid>
+                        </Button>
+                    </Grid>
+                </Border>
+            </Grid>
+            <!--Page content-->
+            <Border CornerRadius="10" Margin="0,15,15,15" Grid.Column="1" Background="#FF17181A">
+                <Grid Margin="5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="100"/>
+                        <RowDefinition Height="2"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <!--Configuration Tab-->
+                    <Grid x:Name="Tab_Configuration" Grid.RowSpan="3" Background="#FF17181A" d:IsHidden="True">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="100"/>
+                            <RowDefinition Height="2"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="2"/>
+                            <RowDefinition Height="100"/>
+                        </Grid.RowDefinitions>
+                        <Grid Background="#FF313131" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="1" Margin="20,0"/>
+                        <StackPanel Orientation="Horizontal" Margin="20,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left">
+                            <Image Width="50" Height="50" Source="/LEDSystem;component/Images/ic_dashboard.png"></Image>
+                            <StackPanel Orientation="Vertical" Margin="15,0,0,0">
+                                <TextBlock FontWeight="Bold" FontSize="22" Foreground="White" HorizontalAlignment="Left" Text="{StaticResource configurationTitle}"/>
+                                <TextBlock FontSize="16" Foreground="#FFA0A0A0" HorizontalAlignment="Left" Text="{StaticResource configurationDescription}"/>
+                            </StackPanel>
+                        </StackPanel>
+                        <Grid Margin="20" Grid.Row="2">
+                            <ScrollViewer HorizontalAlignment="Stretch" VerticalAlignment="Stretch" VerticalScrollBarVisibility="Auto">
+                                <StackPanel x:Name="Tab_ConfigurationContent">
+                                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{StaticResource configurationProfile}" FontWeight="Bold" Margin="5,0,0,5" Foreground="#FF9EA7AE"/>
+                                    <Border CornerRadius="10" Height="80" HorizontalAlignment="Stretch" Margin="0,10,0,10" Background="#FF324B77">
+                                        <Grid Margin="20,10">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="20"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                            </Grid.ColumnDefinitions>
+                                            <StackPanel Grid.Column="0" Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Left">
+                                                <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{StaticResource configurationItemNameTitle}" FontWeight="Bold" Foreground="#FF9EA7AE" FontSize="16"/>
+                                                <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{StaticResource configurationItemNameDescription}" Margin="0,5,0,0" Foreground="#FF7E878E"/>
+                                            </StackPanel>
+                                            <TextBox x:Name="TBox_Name" BorderThickness="1" Grid.Column="2" Height="36" Width="340" Background="#FF2C436B" BorderBrush="#FF40619A" TextChanged="TBox_Name_TextChanged" Text="Unknown"/>
+                                        </Grid>
+                                    </Border>
+
+                                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{StaticResource configurationConnection}" FontWeight="Bold" Margin="5,10,0,5" Foreground="#FF9EA7AE"/>
+                                    <Border CornerRadius="10" Height="80" HorizontalAlignment="Stretch" Background="#FF324B77" Margin="0,10,0,10">
+                                        <Grid Margin="20,10">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="20"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                            </Grid.ColumnDefinitions>
+                                            <StackPanel Grid.Column="0" Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Left">
+                                                <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{StaticResource configurationItemBoardTitle}" FontWeight="Bold" Foreground="#FF9EA7AE" FontSize="16"/>
+                                                <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{StaticResource configurationItemBoardDescription}" Margin="0,5,0,0" Foreground="#FF7E878E"/>
+                                            </StackPanel>
+                                            <ComboBox x:Name="CBox_Board" Grid.Column="2" Height="36" Width="340" Background="#FF2C436B" BorderBrush="#FF40619A" SelectionChanged="CBox_Board_SelectionChanged" ItemsSource="{StaticResource boards}"/>
+                                        </Grid>
+                                    </Border>
+                                    <Border CornerRadius="10" Height="80" HorizontalAlignment="Stretch" Margin="0,0,0,10" Background="#FF324B77">
+                                        <Grid Margin="20,10">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="20"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                            </Grid.ColumnDefinitions>
+                                            <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Left">
+                                                <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{StaticResource configurationItemLightsTitle}" FontWeight="Bold" Foreground="#FF9EA7AE" FontSize="16"/>
+                                                <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{StaticResource configurationItemLightsDescription}" Margin="0,5,0,0" Foreground="#FF7E878E"/>
+                                            </StackPanel>
+                                            <controls:NumericUpDownControl x:Name="NBox_LightsCount" BorderThickness="1" Grid.Column="2" Minimum="1" Maximum="25" Value="1" Unit="{StaticResource configurationItemLightsUnit}" Height="36" Width="340" BorderBrush="#FF40619A" Background="#FF2C436B" ValueChanged="NBox_LightsCount_ValueChanged"/>
+                                        </Grid>
+                                    </Border>
+
+                                    <!--USB Settings-->
+                                    <Border x:Name="Item_BoardUsbBaud" Visibility="Collapsed" CornerRadius="10" Height="80" HorizontalAlignment="Stretch" Margin="0,0,0,10" Background="#FF324B77">
+                                        <Grid Margin="20,10">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="20"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                            </Grid.ColumnDefinitions>
+                                            <StackPanel Grid.Column="0" Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Left">
+                                                <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{StaticResource configurationItemUsbBaudTitle}" FontWeight="Bold" Foreground="#FF9EA7AE" FontSize="16"/>
+                                                <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{StaticResource configurationItemUsbBaudDescription}" Margin="0,5,0,0" Foreground="#FF7E878E"/>
+                                            </StackPanel>
+                                            <controls:NumericUpDownControl BorderThickness="1" x:Name="NBox_UsbBaud" Grid.Column="2" Width="340" Height="36" Minimum="2400" Value="9600" Maximum="115200" Unit="bps" Background="#FF2C436B" BorderBrush="#FF40619A" ValueChanged="NBox_UsbBaud_ValueChanged"/>
+                                        </Grid>
+                                    </Border>
+                                    <Border x:Name="Item_BoardUsbPort" Visibility="Collapsed" CornerRadius="10" Height="80" HorizontalAlignment="Stretch" Margin="0,0,0,10" Background="#FF324B77">
+                                        <Grid Margin="20,10">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="20"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                            </Grid.ColumnDefinitions>
+                                            <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Left">
+                                                <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{StaticResource configurationItemUsbPortTitle}" FontWeight="Bold" Foreground="#FF9EA7AE" FontSize="16"/>
+                                                <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{StaticResource configurationItemUsbPortDescription}" Margin="0,5,0,0" Foreground="#FF7E878E"/>
+                                            </StackPanel>
+                                            <ComboBox x:Name="CBox_UsbPort" Grid.Column="2" Height="36" Width="340" BorderBrush="#FF40619A" Background="#FF2C436B" SelectionChanged="CBox_UsbPort_SelectionChanged"/>
+                                        </Grid>
+                                    </Border>
+
+                                    <!--LAN Settings-->
+                                    <Border x:Name="Item_BoardLanPort" Visibility="Collapsed" CornerRadius="10" Height="80" HorizontalAlignment="Stretch" Margin="0,0,0,10" Background="#FF324B77">
+                                        <Grid Margin="20,10">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="20"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                            </Grid.ColumnDefinitions>
+                                            <StackPanel Grid.Column="0" Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Left">
+                                                <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{StaticResource configurationItemLanPortTitle}" FontWeight="Bold" Foreground="#FF9EA7AE" FontSize="16"/>
+                                                <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{StaticResource configurationItemLanPortDescription}" Margin="0,5,0,0" Foreground="#FF7E878E"/>
+                                            </StackPanel>
+                                            <controls:NumericUpDownControl x:Name="NBox_LanPort" Value="2" Grid.Column="2" Width="340" Height="36" Background="#FF2C436B" BorderThickness="1" BorderBrush="#FF40619A" Maximum="11000" ValueChanged="NBox_LanPort_ValueChanged"/>
+                                        </Grid>
+                                    </Border>
+                                    <Border x:Name="Item_BoardLanIpAddress" Visibility="Collapsed" CornerRadius="10" Height="80" HorizontalAlignment="Stretch" Margin="0,0,0,10" Background="#FF324B77">
+                                        <Grid Margin="20,10">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="20"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                            </Grid.ColumnDefinitions>
+                                            <StackPanel Grid.Column="0" Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Left">
+                                                <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{StaticResource configurationItemLanIpAddresTitle}" FontWeight="Bold" Foreground="#FF9EA7AE" FontSize="16"/>
+                                                <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{StaticResource configurationItemLanIpAddresDescription}" Margin="0,5,0,0" Foreground="#FF7E878E"/>
+                                            </StackPanel>
+                                            <TextBox x:Name="TBox_LanIpAddress" Grid.Column="2" Width="340" Height="36" BorderThickness="1" Background="#FF2C436B" BorderBrush="#FF40619A" TextChanged="TBox_LanIpAddress_TextChanged"/>
+                                        </Grid>
+                                    </Border>
+                              
+                                </StackPanel>
+                            </ScrollViewer>
+                        </Grid>
+                        <Grid Background="#FF313131" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="3" Margin="20,0,20,0"/>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="4" Margin="0,0,20,0" VerticalAlignment="Center">
+                            <Button x:Name="Btn_Reset" Height="52" Margin="0,0,5,0" Content="{DynamicResource configurationResetButton}" HorizontalAlignment="Left" Padding="30,0" Background="#FF313131" BorderBrush="{x:Null}" HorizontalContentAlignment="Left" Click="Btn_Reset_Click"/>
+                            <Button x:Name="Btn_Connect" Height="52" Content="{DynamicResource configurationConnectButton}" HorizontalAlignment="Left" Padding="30,0" Background="#FF357732" BorderBrush="{x:Null}" HorizontalContentAlignment="Left" Foreground="White" Click="Btn_Connect_Click"/>
+                        </StackPanel>
+                    </Grid>
+
+                    <!--Effect Tab-->
+                    <Grid x:Name="Tab_Effect" Grid.RowSpan="3" Background="#FF17181A" d:IsHidden="True">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="100"/>
+                            <RowDefinition Height="2"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid Background="#FF313131" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="1" Margin="20,0"/>
+                        <!--Effect Metadata-->
+                        <StackPanel Orientation="Horizontal" Margin="20,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left">
+                            <Image Width="50" Height="50" Source="/LEDSystem;component/Images/ic_effect.png"></Image>
+                            <StackPanel Orientation="Vertical" Margin="15,0,0,0">
+                                <TextBlock x:Name="Tb_EffectName" FontWeight="Bold" FontSize="22" Foreground="White" Text="-"/>
+                                <TextBlock x:Name="Tb_EffectDetails" FontSize="16" Foreground="#FFA0A0A0" Text="-"/>
+                            </StackPanel>
+                        </StackPanel>
+                        <Button x:Name="Btn_EffectService" HorizontalAlignment="Right" Style="{StaticResource FlatButton}" Background="#FF17181A" BorderBrush="{x:Null}">
+                            <Image x:Name="Img_EffectService" Opacity="0.6" Margin="20,0" Width="150" Height="70"></Image>
+                        </Button>
+
+                        <!--Effect Template-->
+                        <ScrollViewer Margin="20" Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" VerticalScrollBarVisibility="Auto">
+                            <ContentControl x:Name="Tmp_Effect" VerticalAlignment="Stretch"/>
+                        </ScrollViewer>
+
+                        <!--Gradient Editor-->
+                        <Border CornerRadius="10" x:Name="Tab_GradientColorPicker" Grid.Row="0" Grid.RowSpan="3" Background="#C20A0A0A" Visibility="Collapsed">
+                            <StackPanel MinHeight="300" Orientation="Vertical" VerticalAlignment="Bottom" Background="#FF17181A">
+                                <TextBlock HorizontalAlignment="Left" Text="PICK A COLOR" FontWeight="Bold" Margin="20,15,0,5" Foreground="#FF9EA7AE"/>
+                                <Grid Height="2" Margin="20,10,20,0" Background="#FF9EA7AE"/>
+                                <ContentControl x:Name="Content_ColorPicker" Margin="20,10"/>
+                                <Grid HorizontalAlignment="Stretch" Height="2" Grid.Row="1" Background="#FF9EA7AE" Margin="20,0"/>
+                                <Grid HorizontalAlignment="Stretch" Margin="20,0">
+                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right">
+                                        <Button x:Name="Btn_ColorPickerCancel" Width="84" Content="Cancel" Margin="0,10,15,10" BorderThickness="0" HorizontalAlignment="Right" BorderBrush="{x:Null}" Height="48" Background="#FF212022" Click="Btn_ColorPickerCancel_Click"/>
+                                        <Button x:Name="Btn_ColorPickerSelect" Width="130" Content="Choose"  HorizontalAlignment="Right" Height="48" Background="#FF9EA7AE" BorderThickness="0" BorderBrush="#FF3E7BF3" Click="Btn_ColorPickerSelect_Click" Foreground="#FF212022"/>
+                                    </StackPanel>
+                                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="#FF777778" TextDecorations="{x:Null}"><Run Foreground="#FF858585" FontWeight="Bold" FontSize="20" FontFamily="HP Simplified" Text="LEDSystem"/><Run Foreground="#FF858585" FontWeight="Bold" FontSize="20" FontFamily="HP Simplified" Text=" "/><Run Foreground="#FF41B791" FontSize="16" FontFamily="Segoe Print" Text="e"/><Run Foreground="#FF4182B5" FontSize="16" FontFamily="Segoe Print" Text="d"/><Run Foreground="#FFB641A6" FontSize="16" FontFamily="Segoe Print" Text="i"/><Run Foreground="#FFD1694A" FontSize="16" FontFamily="Segoe Print" Text="t"/><Run Foreground="#FFD1AA4A" FontSize="16" FontFamily="Segoe Print" Text="o"/><Run Foreground="#FFB8C848" FontSize="16" FontFamily="Segoe Print" Text="r"/><Run Text=" ™"/></TextBlock>
+                                </Grid>
+                            </StackPanel>
+                        </Border>
+                    </Grid>
+
+                    <!--Settings Tab-->
+                    <Grid x:Name="Tab_Settings" Grid.RowSpan="3" Background="#FF17181A">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="100"/>
+                            <RowDefinition Height="2"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid Background="#FF313131" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="1" Margin="20,0"/>
+                        <Grid VerticalAlignment="Center">
+                            <StackPanel Orientation="Horizontal" Margin="20,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left">
+                                <Image Width="50" Height="50" Source="/LEDSystem;component/Images/ic_settings.png" />
+                                <StackPanel Orientation="Vertical" Margin="15,0,0,0">
+                                    <TextBlock FontWeight="Bold" FontSize="22" Foreground="White" Text="{StaticResource settingsTitle}" HorizontalAlignment="Left"/>
+                                    <TextBlock FontSize="16" Foreground="#FFA0A0A0" Text="{StaticResource settingsDescription}" HorizontalAlignment="Left"/>
+                                </StackPanel>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="0,0,20,0" VerticalAlignment="Center" HorizontalAlignment="Right">
+                                <Button Height="52" HorizontalAlignment="Left" Margin="0,0,5,0" Padding="30,0" Background="#FF313131" BorderBrush="{x:Null}" HorizontalContentAlignment="Left" Foreground="White">
+                                    <TextBlock Foreground="#FFC1C1C1"><Run Text="{StaticResource settingsVersionButton}"/><Run FontWeight="Bold" Text=" "/><Run x:Name="Tb_AppVersion" FontWeight="Bold" Text="1.0"/></TextBlock>
+                                </Button>
+                                <Button x:Name="Btn_About" Height="52"  HorizontalAlignment="Left" Padding="20,0" Background="#FF404D55" BorderBrush="{x:Null}" HorizontalContentAlignment="Left" Foreground="White" Click="Btn_About_Click" >
+                                    <Path Stretch="Uniform" Data="M11 7h2v2h-2zm0 4h2v6h-2zm1-9C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z" Fill="White" />
+                                </Button>
+                            </StackPanel>
+                        </Grid>
+                        <Grid Margin="20" Grid.Row="2">
+                            <ScrollViewer HorizontalAlignment="Stretch" VerticalAlignment="Stretch" VerticalScrollBarVisibility="Hidden">
+                                <StackPanel Orientation="Vertical">
+                                    <TextBlock HorizontalAlignment="Left" Text="{StaticResource settingsWindows}" FontWeight="Bold" Margin="5,0,0,5" Foreground="#FF9EA7AE"/>
+                                    <Border x:Name="Item_pStartAtStartup" Height="80" CornerRadius="10" HorizontalAlignment="Stretch" Margin="0,10,0,10" Background="#FF324B77">
+                                        <Grid Margin="20,10">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="20"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                            </Grid.ColumnDefinitions>
+                                            <StackPanel Grid.Column="0" Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Left">
+                                                <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{StaticResource settingsItemStartAtStartupTitle}" FontWeight="Bold" Foreground="#FF9EA7AE" FontSize="16"/>
+                                                <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{StaticResource settingsItemStartAtStartupDescription}" Margin="0,5,0,0" Foreground="#FF7E878E"/>
+                                            </StackPanel>
+                                            <CheckBox Grid.Column="2" x:Name="CBox_StartAtStartup" VerticalAlignment="Center" Click="CBox_StartAtStartup_Click" Margin="0,0,10,0"/>
+                                        </Grid>
+                                    </Border>
+                                    <Border x:Name="Item_pStartEffect" Height="80" CornerRadius="10" HorizontalAlignment="Stretch" Margin="0,0,0,10" Background="#FF324B77">
+                                        <Grid Margin="20,10">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="20"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                            </Grid.ColumnDefinitions>
+                                            <StackPanel Grid.Column="0" Orientation="Vertical" VerticalAlignment="Center">
+                                                <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{StaticResource settingsItemStartEffectTitle}" FontWeight="Bold" Foreground="#FF9EA7AE" FontSize="16"/>
+                                                <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{StaticResource settingsItemStartEffectDescription}" Margin="0,5,0,0" Foreground="#FF7E878E"/>
+                                            </StackPanel>
+                                            <ComboBox x:Name="CBox_StartEffect" Grid.Column="2" Height="36" Background="#FF2C436B" BorderBrush="#FF40619A" Width="340" SelectionChanged="CBox_StartEffect_SelectionChanged"/>
+                                        </Grid>
+                                    </Border>
+                                    <Border x:Name="Item_pStartTimeout" Height="80" CornerRadius="10" HorizontalAlignment="Stretch" Margin="0,0,0,10" Background="#FF324B77">
+                                        <Grid Margin="20,10">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="20"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                            </Grid.ColumnDefinitions>
+                                            <StackPanel Grid.Column="0" Orientation="Vertical" VerticalAlignment="Center">
+                                                <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{StaticResource settingsItemStartAttemptsTitle}" FontWeight="Bold" Foreground="#FF9EA7AE" FontSize="16"/>
+                                                <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{StaticResource settingsItemStartAttemptsDescription}" Margin="0,5,0,0" Foreground="#FF7E878E"/>
+                                            </StackPanel>
+                                            <controls:NumericUpDownControl x:Name="NBox_StartAttempts" BorderThickness="1" Grid.Column="2" Minimum="1" Maximum="10" Value="5" Unit="attempts" Height="36" Width="340" BorderBrush="#FF40619A" Background="#FF2C436B" ValueChanged="NBox_StartAttempts_ValueChanged"/>
+                                        </Grid>
+                                    </Border>
+                                    <Border x:Name="Item_pStartMinimized" Height="80" CornerRadius="10" HorizontalAlignment="Stretch" Background="#FF324B77">
+                                        <Grid Margin="20,10">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="20"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                            </Grid.ColumnDefinitions>
+                                            <StackPanel Grid.Column="0" Orientation="Vertical" VerticalAlignment="Center">
+                                                <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{StaticResource settingsItemStartMinimizedTitle}" FontWeight="Bold" Foreground="#FF9EA7AE" FontSize="16"/>
+                                                <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{StaticResource settingsItemStartMinimizedDescription}" Margin="0,5,0,0" Foreground="#FF7E878E"/>
+                                            </StackPanel>
+                                            <CheckBox Grid.Column="2" x:Name="CBox_StartMinimized" VerticalAlignment="Center" Margin="0,0,10,0" Click="CBox_StartMinimized_Click"/>
+                                        </Grid>
+                                    </Border>
+                                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{StaticResource settingsCloseButton}" FontWeight="Bold" Margin="5,20,0,5" Foreground="#FF9EA7AE"/>
+                                    <Border x:Name="Item_pMinimizeToTry" Height="80" CornerRadius="10" Margin="0,10,0,0" HorizontalAlignment="Stretch" Background="#FF324B77">
+                                        <Grid Margin="20,10">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="20"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                            </Grid.ColumnDefinitions>
+                                            <StackPanel Grid.Column="0" Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Left">
+                                                <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{StaticResource settingsItemMinimizeToTryTitle}" FontWeight="Bold" Foreground="#FF9EA7AE" FontSize="16"/>
+                                                <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{StaticResource settingsItemMinimizeToTryDescription}" Margin="0,5,0,0" Foreground="#FF7E878E"/>
+                                            </StackPanel>
+                                            <CheckBox Grid.Column="2" x:Name="CBox_MinimizedToTry" VerticalAlignment="Center" Margin="0,0,10,0" Click="CBox_MinimizedToTry_Click"/>
+                                        </Grid>
+                                    </Border>
+                                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{StaticResource settingsUserInterface}" FontWeight="Bold" Margin="5,20,0,5" Foreground="#FF9EA7AE"/>
+                                    <Border Height="80" CornerRadius="10" Margin="0,10,0,0" HorizontalAlignment="Stretch" Background="#FF324B77">
+                                        <Grid Margin="20,10">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="20"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                            </Grid.ColumnDefinitions>
+                                            <StackPanel Grid.Column="0" Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Left">
+                                                <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{StaticResource settingsItemMScalingTitle}" FontWeight="Bold" Foreground="#FF9EA7AE" FontSize="16"/>
+                                                <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{StaticResource settingsItemMScalingDescription}" Margin="0,5,0,0" Foreground="#FF7E878E"/>
+                                            </StackPanel>
+                                            <ComboBox x:Name="CBox_Scaling" Grid.Column="2" Height="36" Background="#FF2C436B" BorderBrush="#FF40619A" Width="340" SelectedIndex="0" SelectionChanged="CBox_Scaling_SelectionChanged">
+                                                <ComboBoxItem Content="50%"></ComboBoxItem>
+                                                <ComboBoxItem Content="75%"></ComboBoxItem>
+                                                <ComboBoxItem Content="100% (Recommanded)"></ComboBoxItem>
+                                                <ComboBoxItem Content="125%"></ComboBoxItem>
+                                                <ComboBoxItem Content="150%"></ComboBoxItem>
+                                            </ComboBox>
+                                        </Grid>
+                                    </Border>
+                                </StackPanel>
+                            </ScrollViewer>
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </Border>
+            <!--Popup navigation menu-->
+            <Grid x:Name="Tab_Overlay" Background="#C20A0A0A" Grid.Column="2" Visibility="Collapsed"/>
+            <Grid Grid.Column="2" x:Name="Tab_Nav_Container" Width="390" Margin="-15,0,0,0" HorizontalAlignment="Left" Background="#FF0A0A0A" Effect="{StaticResource z-depth1}" Visibility="Collapsed">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="180"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="150"/>
+                </Grid.RowDefinitions>
+            </Grid>
+            <Grid x:Name="Nav_Small" Grid.Column="0" Background="#FF0A0A0A" Visibility="Collapsed">
+                <Border CornerRadius="10" BorderThickness="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="#FF17181A" Grid.Row="0" Margin="15,15,15,15">
+                    <Button x:Name="Btn_Menu" Background="#FF17181A" BorderThickness="0" Click="Btn_Menu_Click">
+                        <Image Width="36" Height="36" Source="/LEDSystem;component/Images/ic_menu.png"/>
+                    </Button>
+                </Border>
+            </Grid>
+            <!--Alert messages-->
+            <Grid x:Name="Tab_Alert" Background="#C20A0A0A" Grid.Column="0" Grid.ColumnSpan="2" Visibility="Collapsed">
+                <Border CornerRadius="10" Width="520" HorizontalAlignment="Center" VerticalAlignment="Center" Background="#FF17181A" Effect="{StaticResource z-depth1}">
+                    <Grid Grid.Column="2" Margin="20,10,30,10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="55"/>
+                            <RowDefinition Height="2"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="2"/>
+                            <RowDefinition Height="70"/>
+                        </Grid.RowDefinitions>
+                        <Grid HorizontalAlignment="Stretch" Height="2" Grid.Row="1" Background="#FF313131"/>
+                        <Grid HorizontalAlignment="Stretch" Height="2" Grid.Row="3" Background="#FF313131"/>
+                        <Button x:Name="Btn_AlertCancel" Width="84" Content="{StaticResource alertResetCancelButton}" Grid.Row="4" Margin="0,10,0,10" HorizontalAlignment="Right" BorderBrush="{x:Null}" Height="48" Background="#FF3C3C3C" Click="Btn_AlertCancel_Click"/>
+                        <Button x:Name="Btn_AlertOk" Width="116" Content="{StaticResource alertResetOkButton}" Grid.Row="4" Margin="0,11.333,90,10.667" HorizontalAlignment="Right" BorderBrush="{x:Null}" Height="48" Background="#FFA04343" Click="Btn_AlertOk_Click"/>
+                        <TextBlock x:Name="Tb_dAlertTitle" Grid.Row="0" HorizontalAlignment="Left" TextWrapping="Wrap" Text="-" VerticalAlignment="Center" Margin="0,0,0,0" FontWeight="Bold" Foreground="{StaticResource App.Light.Foreground}" FontSize="18"/>
+                        <TextBlock x:Name="Tb_dAlertDescription" Grid.Row="1" Grid.RowSpan="2" HorizontalAlignment="Left" TextWrapping="Wrap" Text="-" VerticalAlignment="Top" Margin="0,10,0,25" Foreground="#FF565656" FontSize="18" />
+                    </Grid>
+                </Border>
+            </Grid>
+        </Grid>
+    </controls:SizeAdjuster>
+</Window>

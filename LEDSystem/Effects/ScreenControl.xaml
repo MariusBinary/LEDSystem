@@ -1,0 +1,57 @@
+﻿<UserControl x:Class="LEDSystem.Effects.ScreenControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:controls="clr-namespace:LEDSystem.UI.Controls"
+             mc:Ignorable="d">
+    <StackPanel Orientation="Vertical">
+        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{StaticResource effectLogicSettings}" FontWeight="Bold" Margin="5,0,0,5" Foreground="#FF9EA7AE"/>
+        <Border x:Name="Item_SamplingSpeed" Height="80" CornerRadius="10" Background="#FF212022" Margin="0,10,0,0">
+            <Grid Margin="20,0" VerticalAlignment="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="20"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0" Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Center">
+                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{StaticResource effectItemSamplingSpeedTitle}" FontWeight="Bold" Foreground="#FF9EA7AE" FontSize="16"/>
+                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{StaticResource effectItemSamplingSpeedDescription}" Margin="0,5,0,0" Foreground="#FF7E878E"/>
+                </StackPanel>
+                <controls:NumericUpDownControl x:Name="NBox_Speed" Grid.Column="2" Width="340" Height="36" Value="80" Minimum="10" Maximum="100" Unit="ms" ValueChanged="NBox_Speed_ValueChanged"/>
+            </Grid>
+        </Border>
+        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{StaticResource effectCaptureSettings}" VerticalAlignment="Top" FontWeight="Bold" Margin="5,20,0,5" Foreground="#FF9EA7AE"/>
+        <Border Height="80" CornerRadius="10" Background="#FF212022" Margin="0,10,0,0">
+            <Grid Margin="20,0" VerticalAlignment="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="20"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0" Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Center">
+                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{StaticResource effectItemCaptureMethodTitle}" FontWeight="Bold" Foreground="#FF9EA7AE" FontSize="16"/>
+                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{StaticResource effectItemCaptureMethodDescription}" Margin="0,5,0,0" Foreground="#FF7E878E"/>
+                </StackPanel>
+                <ComboBox x:Name="CBox_CaptureMethod" Grid.Column="2" Width="340" Height="36" SelectionChanged="CBox_CaptureMethod_SelectionChanged" >
+                    <ComboBoxItem Content="DirectX (Reccomanded)"/>
+                    <ComboBoxItem Content="GDI+"/>
+                </ComboBox>
+            </Grid>
+        </Border>
+        <Border Height="80" CornerRadius="10" Background="#FF212022" Margin="0,10,0,0">
+            <Grid Margin="20,0" VerticalAlignment="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="20"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0" Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Center">
+                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{StaticResource effectItemCaptureScreenTitle}" FontWeight="Bold" Foreground="#FF9EA7AE" FontSize="16"/>
+                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{StaticResource effectItemCaptureScreenDescription}" Margin="0,5,0,0" Foreground="#FF7E878E"/>
+                </StackPanel>
+                <ComboBox x:Name="CBox_CaptureScreen" Grid.Column="2" Width="340" Height="36" SelectionChanged="CBox_CaptureScreen_SelectionChanged" />
+            </Grid>
+        </Border>
+    </StackPanel>
+</UserControl>

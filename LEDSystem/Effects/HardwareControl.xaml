@@ -1,0 +1,57 @@
+﻿<UserControl x:Class="LEDSystem.Effects.HardwareControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:controls="clr-namespace:LEDSystem.UI.Controls"
+             mc:Ignorable="d">
+    <StackPanel Orientation="Vertical">
+        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{StaticResource effectHardwareSettings}" FontWeight="Bold" Margin="5,0,0,5" Foreground="#FF9EA7AE"/>
+        <Border Height="80" CornerRadius="10" Background="#FF212022" Margin="0,10,0,0">
+            <Grid Margin="20,10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="20"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0" Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Center">
+                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{StaticResource effectItemHardwareTitle}" FontWeight="Bold" Foreground="#FF9EA7AE" FontSize="16"/>
+                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{StaticResource effectItemHardwareDescription}" Margin="0,5,0,0" Foreground="#FF7E878E"/>
+                </StackPanel>
+                <ComboBox Grid.Column="2" HorizontalAlignment="Right" Height="36" x:Name="CBox_InputDevice" Width="340" VerticalAlignment="Stretch" SelectionChanged="CBox_InputDevice_SelectionChanged">
+                    <ComboBoxItem Content="CPU"/>
+                    <ComboBoxItem Content="RAM"/>
+                </ComboBox>
+            </Grid>
+        </Border>
+        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{StaticResource effectColorSettings}" VerticalAlignment="Top" FontWeight="Bold" Margin="5,20,0,5" Foreground="#FF9EA7AE"/>
+        <Border Height="80" CornerRadius="10" Background="#FF212022"  Margin="0,10,0,0">
+            <Grid Margin="20,10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="20"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0">
+                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{StaticResource effectItemColorModeTitle}" FontWeight="Bold" Foreground="#FF9EA7AE" FontSize="16"/>
+                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{StaticResource effectItemColorModeDescription}" Margin="0,5,0,0" Foreground="#FF7E878E"/>
+                </StackPanel>
+                <ComboBox Grid.Column="2" HorizontalAlignment="Right" Height="36" x:Name="CBox_ColorMode" Width="340" VerticalAlignment="Stretch" ItemsSource="{StaticResource hardwareColorModes}" SelectionChanged="CBox_ColorMode_SelectionChanged" />
+            </Grid>
+        </Border>
+        <Border Height="80" CornerRadius="10" Background="#FF212022"  Margin="0,10,0,0">
+            <Grid Margin="20,10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="20"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0">
+                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{StaticResource effectItemColorPickerTitle}" FontWeight="Bold" Foreground="#FF9EA7AE" FontSize="16"/>
+                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{StaticResource effectItemColorPickerDescription}" Margin="0,5,0,0" Foreground="#FF7E878E"/>
+                </StackPanel>
+                <controls:ColorBoxControl x:Name="CBox_ColorPicker" Grid.Column="2" Width="340" Height="36" OnPickerRequest="CBox_ColorPicker_OnPickerRequest"/>
+            </Grid>
+        </Border>
+    </StackPanel>
+</UserControl>

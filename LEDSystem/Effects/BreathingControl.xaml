@@ -1,0 +1,83 @@
+﻿<UserControl x:Class="LEDSystem.Effects.BreathingControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:controls="clr-namespace:LEDSystem.UI.Controls"
+             mc:Ignorable="d">
+    <StackPanel Orientation="Vertical">
+        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{StaticResource effectLogicSettings}" FontWeight="Bold" Margin="5,0,0,5" Foreground="#FF9EA7AE"/>
+        <Border Height="80" CornerRadius="10" Background="#FF212022" Margin="0,10,0,0">
+            <Grid Margin="10,10,20,10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="20"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0">
+                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{StaticResource effectItemBreathingSpeedTitle}" VerticalAlignment="Top" FontWeight="Bold" Margin="10,0,0,0" Foreground="#FF9EA7AE" FontSize="16"/>
+                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{StaticResource effectItemBreathingSpeedDescription}" VerticalAlignment="Top" Margin="10,5,0,0" Foreground="#FF7E878E"/>
+                </StackPanel>
+                <controls:NumericUpDownControl x:Name="NBox_Speed" Grid.Column="2" Width="340" Height="36" Value="80" Minimum="10" Maximum="100" Unit="ms" ValueChanged="NBox_Speed_ValueChanged"/>
+            </Grid>
+        </Border>
+        <Border Height="80" CornerRadius="10" Background="#FF212022"  Margin="0,10,0,0">
+            <Grid Margin="20,10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="20"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0">
+                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{StaticResource effectItemMinIntensityTitle}" FontWeight="Bold" Foreground="#FF9EA7AE" FontSize="16"/>
+                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{StaticResource effectItemMinIntensityDescription}"  Margin="0,5,0,0" Foreground="#FF7E878E"/>
+                </StackPanel>
+                <controls:NumericUpDownControl x:Name="NBox_MinIntensity" Grid.Column="2" Width="340" Height="36" Value="0" Maximum="100" Unit="%" ValueChanged="NBox_MinIntensity_ValueChanged"/>
+            </Grid>
+        </Border>
+        <Border Height="80" CornerRadius="10" Background="#FF212022"  Margin="0,10,0,0">
+            <Grid Margin="20,10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="20"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0">
+                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{StaticResource effectItemMaxIntensityTitle}"  FontWeight="Bold" Foreground="#FF9EA7AE" FontSize="16"/>
+                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{StaticResource effectItemMaxIntensityDescription}"  Margin="0,5,0,0" Foreground="#FF7E878E"/>
+                </StackPanel>
+                <controls:NumericUpDownControl x:Name="NBox_MaxIntensity" Grid.Column="2" Width="340" Height="36" Value="100" Maximum="100" Unit="%" ValueChanged="NBox_MaxIntensity_ValueChanged"/>
+            </Grid>
+        </Border>
+        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{StaticResource effectColorSettings}"  VerticalAlignment="Top" FontWeight="Bold" Margin="5,20,0,5" Foreground="#FF9EA7AE"/>
+        <Border Height="80" CornerRadius="10" Background="#FF212022"  Margin="0,10,0,0">
+            <Grid Margin="20,10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="20"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0">
+                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{StaticResource effectItemColorModeTitle}" FontWeight="Bold" Foreground="#FF9EA7AE" FontSize="16"/>
+                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{StaticResource effectItemColorModeDescription}"  Margin="0,5,0,0" Foreground="#FF7E878E"/>
+                </StackPanel>
+                <ComboBox x:Name="CBox_ColorMode" Grid.Column="2" Width="340" Height="36" ItemsSource="{StaticResource breathingColorModes}" SelectionChanged="CBox_ColorMode_SelectionChanged"/>
+            </Grid>
+        </Border>
+        
+        <Border x:Name="Item_ColorPicker" Height="80" CornerRadius="10" Background="#FF212022"  Margin="0,10,0,0">
+            <Grid Margin="20,10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="20"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0">
+                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{StaticResource effectItemColorPickerTitle}"  FontWeight="Bold" Foreground="#FF9EA7AE" FontSize="16"/>
+                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{StaticResource effectItemColorPickerDescription}"  Margin="0,5,0,0" Foreground="#FF7E878E"/>
+                </StackPanel>
+                <controls:ColorBoxControl x:Name="CBox_ColorPicked" Grid.Column="2" Width="340" Height="36" OnPickerRequest="CBox_ColorPicked_OnPickerRequest"/>
+            </Grid>
+        </Border>
+    </StackPanel>
+</UserControl>
